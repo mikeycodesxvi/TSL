@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { ShoppingBag, Menu, X, Calendar } from "lucide-react";
 import { DumplingIcon } from "./FoodIcons";
 
@@ -40,25 +41,22 @@ export default function Navbar({ trayCount, onOpenTray, onOpenReservation }: Nav
     >
       <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
         <div className="flex items-center justify-between">
-          {/* Brand Logo */}
+          {/* Brand Logo with KCLOGO */}
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 rounded-2xl bg-orange-50 border border-orange-200/80 backdrop-blur-md flex items-center justify-center text-orange-600 group-hover:scale-105 transition-transform shadow-sm">
-              <DumplingIcon className="w-5 h-5 text-orange-600" />
+            <div className="relative h-11 sm:h-12 w-28 sm:w-36 rounded-xl overflow-hidden shadow-sm border border-zinc-200/80 group-hover:scale-105 transition-transform bg-white">
+              <Image
+                src="/KCLOGO.png"
+                alt="KC Soup Bar"
+                fill
+                className="object-cover"
+                priority
+              />
             </div>
-            <div>
-              <div className="flex items-center gap-1.5">
-                <span className={`font-extrabold text-base tracking-tight transition-colors ${
-                  isScrolled ? "text-zinc-900 group-hover:text-orange-600" : "text-white group-hover:text-orange-400"
-                }`}>
-                  KC SOUP BAR
-                </span>
-              </div>
-              <span className={`text-[10px] tracking-wider uppercase font-semibold block transition-colors ${
-                isScrolled ? "text-zinc-500" : "text-zinc-300"
-              }`}>
-                Since 1989 • Dehradun
-              </span>
-            </div>
+            <span className={`hidden sm:inline-block text-[10px] tracking-wider uppercase font-semibold transition-colors ${
+              isScrolled ? "text-zinc-500" : "text-zinc-300"
+            }`}>
+              Since 1989 • Dehradun
+            </span>
           </Link>
 
           {/* Desktop Nav Links - Clean White & Orange Glass Bar */}

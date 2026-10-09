@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Bowlby+One+SC&display=swap');
 @import "tailwindcss";
 
 :root {
@@ -5,20 +6,26 @@
   --foreground: #18181b;
   --accent-orange: #ea580c;
   --accent-amber: #f59e0b;
+  --font-bowlby: 'Bowlby One SC', cursive, sans-serif;
 }
 
 html {
   scroll-behavior: smooth;
   color-scheme: light;
+  font-family: 'Bowlby One SC', cursive, sans-serif;
+}
+
+body, button, input, select, textarea, h1, h2, h3, h4, h5, h6, a, span, p, label {
+  font-family: 'Bowlby One SC', cursive, sans-serif;
 }
 
 body {
   background: #fafaf9;
   color: #18181b;
-  font-family: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
   overflow-x: hidden;
   selection-background-color: #ea580c;
   selection-color: #ffffff;
+  letter-spacing: 0.015em;
 }
 
 ::selection {

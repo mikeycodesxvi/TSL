@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Phone, Mail, Check, Heart } from "lucide-react";
 import confetti from "canvas-confetti";
 import { RESTAURANT_INFO, OUTLETS } from "../data/restaurantData";
@@ -29,17 +30,17 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 pb-12 border-b border-zinc-200">
           {/* Brand Info */}
           <div className="lg:col-span-4 space-y-3">
-            <div className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-xl bg-orange-100 border border-orange-200 flex items-center justify-center text-orange-600 shadow-sm">
-                <DumplingIcon className="w-5 h-5 text-orange-600" />
-              </div>
-              <div>
-                <h3 className="font-extrabold text-base text-zinc-900">KC SOUP BAR</h3>
-                <span className="text-[10px] text-zinc-500 uppercase font-semibold block">
-                  Est. 1989 • Dehradun, Uttarakhand
-                </span>
-              </div>
+            <div className="relative h-12 w-36 rounded-xl overflow-hidden shadow-sm border border-zinc-200 bg-white">
+              <Image
+                src="/KCLOGO.png"
+                alt="KC Soup Bar"
+                fill
+                className="object-cover"
+              />
             </div>
+            <span className="text-[10px] text-zinc-500 uppercase font-semibold block">
+              Est. 1989 • Dehradun, Uttarakhand
+            </span>
 
             <p className="text-xs text-zinc-600 leading-relaxed max-w-sm">
               35 years of slow-simmered Himalayan broths, 18-pleat hand-folded momos, and warm memories on Rajpur Road.
