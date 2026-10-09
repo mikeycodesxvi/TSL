@@ -6,7 +6,7 @@ import { DumplingIcon, SoupBowlIcon, LeafHerbIcon } from "./FoodIcons";
 
 export default function HeritageStory() {
   return (
-    <section id="story" className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <section id="story" className="py-24 px-4 sm:px-6 lg:px-8 xl:px-12 max-w-screen-2xl mx-auto">
       <div className="bg-white/90 backdrop-blur-2xl border border-orange-100/80 rounded-3xl p-6 sm:p-10 shadow-xl shadow-orange-950/5 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
         {/* Left: Authentic Photography */}
         <div className="lg:col-span-5 relative">

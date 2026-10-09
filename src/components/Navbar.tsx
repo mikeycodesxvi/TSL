@@ -38,7 +38,7 @@ export default function Navbar({ trayCount, onOpenTray, onOpenReservation }: Nav
           : "bg-transparent py-5"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
         <div className="flex items-center justify-between">
           {/* Brand Logo */}
           <Link href="/" className="flex items-center gap-3 group">
@@ -51,9 +51,6 @@ export default function Navbar({ trayCount, onOpenTray, onOpenReservation }: Nav
                   isScrolled ? "text-zinc-900 group-hover:text-orange-600" : "text-white group-hover:text-orange-400"
                 }`}>
                   KC SOUP BAR
-                </span>
-                <span className="text-[10px] font-bold px-1.5 py-0.2 rounded-md bg-orange-500 text-white shadow-sm">
-                  MOMOS
                 </span>
               </div>
               <span className={`text-[10px] tracking-wider uppercase font-semibold block transition-colors ${

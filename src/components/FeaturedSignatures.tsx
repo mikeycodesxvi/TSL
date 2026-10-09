@@ -38,7 +38,7 @@ export default function FeaturedSignatures({ onAddToCart }: FeaturedSignaturesPr
   };
 
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <section className="py-20 px-4 sm:px-6 lg:px-8 xl:px-12 max-w-screen-2xl mx-auto">
       <div className="flex flex-col md:flex-row md:items-end justify-between mb-10">
         <div>
           <span className="text-xs font-bold text-orange-600 uppercase tracking-widest block mb-2">

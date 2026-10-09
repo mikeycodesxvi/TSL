@@ -51,7 +51,7 @@ export default function HeroSection({ onExploreMenu, onOpenOrder }: HeroSectionP
       </div>
 
       {/* Hero Content */}
-      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 w-full text-center">
+      <div className="relative z-10 max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 w-full text-center">
         {/* Heritage Pill Badge */}
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/15 border border-white/25 backdrop-blur-md mb-6 shadow-sm">
           <span className="w-2 h-2 rounded-full bg-orange-400 animate-pulse" />
@@ -61,13 +61,13 @@ export default function HeroSection({ onExploreMenu, onOpenOrder }: HeroSectionP
         </div>
 
         {/* High-Contrast Bold Headline */}
-        <h1 className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white max-w-4xl mx-auto leading-[1.12] mb-6 drop-shadow-md">
+        <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-tight text-white max-w-5xl mx-auto leading-[1.12] mb-6 drop-shadow-md">
           The Soul of <span className="text-orange-400">Dehradun</span>, <br />
           Hand-Folded Since <span className="text-orange-400">1989</span>.
         </h1>
 
         {/* Subtitle with High Contrast */}
-        <p className="text-zinc-100 text-sm sm:text-base md:text-lg max-w-2xl mx-auto font-normal leading-relaxed mb-10 text-balance drop-shadow">
+        <p className="text-zinc-100 text-sm sm:text-base md:text-xl max-w-3xl mx-auto font-normal leading-relaxed mb-10 text-balance drop-shadow">
           Pioneering Dehradun&apos;s famous 18-hour slow-simmered Dumpling Soup, artisanal Tibetan momos, and piping hot thukpa in the Himalayan foothills.
         </p>
 
@@ -93,7 +93,7 @@ export default function HeroSection({ onExploreMenu, onOpenOrder }: HeroSectionP
         </div>
 
         {/* 4 Clean Frosted Glass Food Feature Cards */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 max-w-4xl mx-auto text-left">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 max-w-6xl mx-auto text-left">
           {foodHighlights.map((feat, i) => (
             <div
               key={i}

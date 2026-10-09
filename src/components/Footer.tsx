@@ -25,7 +25,7 @@ export default function Footer() {
 
   return (
     <footer className="relative bg-[#f5f5f4] border-t border-orange-100/90 pt-16 pb-12 text-zinc-600">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 pb-12 border-b border-zinc-200">
           {/* Brand Info */}
           <div className="lg:col-span-4 space-y-3">
@@ -34,7 +34,7 @@ export default function Footer() {
                 <DumplingIcon className="w-5 h-5 text-orange-600" />
               </div>
               <div>
-                <h3 className="font-extrabold text-base text-zinc-900">KC SOUP BAR & MOMOS</h3>
+                <h3 className="font-extrabold text-base text-zinc-900">KC SOUP BAR</h3>
                 <span className="text-[10px] text-zinc-500 uppercase font-semibold block">
                   Est. 1989 • Dehradun, Uttarakhand
                 </span>
