@@ -4,10 +4,9 @@ import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import HeroSection from "../components/HeroSection";
 import MarqueeTicker from "../components/MarqueeTicker";
-import HeritageStory from "../components/HeritageStory";
-import DishInspector3D from "../components/DishInspector3D";
-import BrothAlchemyCustomizer from "../components/BrothAlchemyCustomizer";
+import FeaturedSignatures from "../components/FeaturedSignatures";
 import MenuSection from "../components/MenuSection";
+import HeritageStory from "../components/HeritageStory";
 import OutletsSection from "../components/OutletsSection";
 import WallOfLove from "../components/WallOfLove";
 import OrderTrayDrawer, { TrayItem } from "../components/OrderTrayDrawer";
@@ -21,7 +20,6 @@ export default function Home() {
   const [isReservationOpen, setIsReservationOpen] = useState<boolean>(false);
   const [reservationOutlet, setReservationOutlet] = useState<Outlet | null>(null);
 
-  // Cart / Tray management
   const handleAddToCart = (item: MenuItem) => {
     setTray((prev) => {
       const existing = prev.find((entry) => entry.item.id === item.id);
@@ -67,8 +65,8 @@ export default function Home() {
   const totalTrayCount = tray.reduce((sum, entry) => sum + entry.quantity, 0);
 
   return (
-    <div className="min-h-screen bg-[#070709] text-zinc-100 selection:bg-amber-500 selection:text-zinc-950">
-      {/* Top Navigation */}
+    <div className="min-h-screen bg-[#070709] text-zinc-100 selection:bg-amber-500 selection:text-zinc-950 font-sans antialiased">
+      {/* 1. Frosted Glass Sticky Navbar (No Music, Clean & Minimal) */}
       <Navbar
         trayCount={totalTrayCount}
         onOpenTray={() => setIsTrayOpen(true)}
@@ -79,35 +77,32 @@ export default function Home() {
       />
 
       <main className="relative z-10">
-        {/* 1. 3D Hero Section */}
+        {/* 2. Simple, Ambient 3D Hero with Food Icons */}
         <HeroSection
           onExploreMenu={() => scrollToSection("menu")}
-          onOpenAlchemy={() => scrollToSection("broth-alchemy")}
+          onOpenOrder={() => setIsTrayOpen(true)}
         />
 
-        {/* 2. Infinite Continuous Marquee */}
+        {/* 3. Subtle Glass Marquee Ribbon */}
         <MarqueeTicker />
 
-        {/* 3. 35-Year Heritage Story (1989 - Present) */}
-        <HeritageStory />
+        {/* 4. Chef's 3 Iconic Highlights (Glass Cards with Food Icons) */}
+        <FeaturedSignatures onAddToCart={handleAddToCart} />
 
-        {/* 4. 3D Dish & Flavor Anatomy Lab */}
-        <DishInspector3D onAddToCart={handleAddToCart} />
-
-        {/* 5. Interactive Broth Alchemy Studio (Custom Bowl Builder) */}
-        <BrothAlchemyCustomizer onAddCustomBowl={handleAddToCart} />
-
-        {/* 6. Signature Menu & Filtering */}
+        {/* 5. Clean, Filterable Menu with Food Icons */}
         <MenuSection onAddToCart={handleAddToCart} />
 
-        {/* 7. Outlets & Valley Locations */}
+        {/* 6. Clean 1989 Heritage Story */}
+        <HeritageStory />
+
+        {/* 7. Outlets & Locations */}
         <OutletsSection onReserveTable={handleOpenReservationForOutlet} />
 
-        {/* 8. Wall of Love (Community Reviews & Memories) */}
+        {/* 8. Wall of Love (3 Patron Reviews) */}
         <WallOfLove />
       </main>
 
-      {/* Footer */}
+      {/* 9. Minimal Glass Footer */}
       <Footer />
 
       {/* Floating Order Tray Drawer */}
