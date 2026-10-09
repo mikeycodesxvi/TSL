@@ -2,7 +2,7 @@
 
 import React, { useState, useMemo } from "react";
 import Image from "next/image";
-import { Search, Plus, Check, X, Flame } from "lucide-react";
+import { Search, Plus, Check, X } from "lucide-react";
 import { MENU_ITEMS, MenuItem } from "../data/restaurantData";
 import {
   SoupBowlIcon,
@@ -62,29 +62,29 @@ export default function MenuSection({ onAddToCart }: MenuSectionProps) {
     <section id="menu" className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       {/* Header */}
       <div className="text-center max-w-2xl mx-auto mb-12">
-        <span className="text-xs font-semibold text-amber-400 uppercase tracking-widest block mb-2">
+        <span className="text-xs font-bold text-orange-600 uppercase tracking-widest block mb-2">
           Dehradun Menu
         </span>
-        <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-3">
-          Our Full <span className="text-gold-gradient">Menu</span>
+        <h2 className="text-3xl sm:text-4xl font-extrabold text-zinc-900 mb-3">
+          Our Full <span className="text-orange-gradient">Menu</span>
         </h2>
-        <p className="text-zinc-400 text-xs sm:text-sm">
+        <p className="text-zinc-600 text-xs sm:text-sm">
           Prepared fresh every day with secret 1989 broths and hand-folded hill dumplings.
         </p>
       </div>
 
-      {/* Clean Glassmorphic Controls Bar */}
-      <div className="bg-white/[0.03] backdrop-blur-2xl border border-white/8 rounded-2xl p-3 sm:p-4 mb-8 flex flex-col md:flex-row gap-3 items-center justify-between">
+      {/* Clean White & Orange Glassmorphic Controls Bar */}
+      <div className="bg-white/85 backdrop-blur-2xl border border-zinc-200/80 rounded-2xl p-3 sm:p-4 mb-8 flex flex-col md:flex-row gap-3 items-center justify-between shadow-sm">
         {/* Category Pills */}
         <div className="flex items-center gap-1.5 overflow-x-auto w-full md:w-auto scrollbar-none pb-1 md:pb-0">
           {categories.map((cat) => (
             <button
               key={cat.id}
               onClick={() => setSelectedCategory(cat.id)}
-              className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all border ${
+              className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all border ${
                 selectedCategory === cat.id
-                  ? "bg-amber-500 text-zinc-950 border-amber-400 font-bold shadow-sm"
-                  : "bg-white/[0.02] hover:bg-white/[0.06] text-zinc-300 border-transparent"
+                  ? "bg-orange-500 text-white border-orange-500 shadow-md shadow-orange-500/20"
+                  : "bg-white text-zinc-700 hover:text-orange-600 border-zinc-200 hover:border-orange-200"
               }`}
             >
               {cat.icon}
@@ -98,13 +98,13 @@ export default function MenuSection({ onAddToCart }: MenuSectionProps) {
           {/* Veg Only Toggle */}
           <button
             onClick={() => setFilterVegOnly(!filterVegOnly)}
-            className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold border transition-all whitespace-nowrap ${
+            className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold border transition-all whitespace-nowrap ${
               filterVegOnly
-                ? "bg-emerald-500/20 text-emerald-300 border-emerald-500/40"
-                : "bg-white/[0.02] text-zinc-400 border-white/5 hover:text-white"
+                ? "bg-emerald-500 text-white border-emerald-500 shadow-sm"
+                : "bg-white text-zinc-700 border-zinc-200 hover:border-emerald-300"
             }`}
           >
-            <LeafHerbIcon className="w-3.5 h-3.5 text-emerald-400" />
+            <LeafHerbIcon className="w-3.5 h-3.5" />
             <span>Veg Only</span>
           </button>
 
@@ -116,12 +116,12 @@ export default function MenuSection({ onAddToCart }: MenuSectionProps) {
               placeholder="Search dishes..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-3 py-2 rounded-xl bg-white/[0.03] border border-white/8 text-white placeholder-zinc-500 text-xs focus:outline-none focus:border-amber-500/50"
+              className="w-full pl-9 pr-3 py-2 rounded-xl bg-white border border-zinc-200 text-zinc-900 placeholder-zinc-400 text-xs focus:outline-none focus:border-orange-500 transition-colors"
             />
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery("")}
-                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-white"
+                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-600"
               >
                 <X className="w-3 h-3" />
               </button>
@@ -135,12 +135,12 @@ export default function MenuSection({ onAddToCart }: MenuSectionProps) {
         {filteredItems.map((item) => (
           <div
             key={item.id}
-            className="group bg-white/[0.025] backdrop-blur-xl border border-white/8 rounded-2xl overflow-hidden transition-all duration-300 hover:border-amber-500/30 hover:bg-white/[0.05] flex flex-col justify-between"
+            className="group bg-white/90 backdrop-blur-xl border border-zinc-200/80 rounded-2xl overflow-hidden transition-all duration-300 hover:border-orange-400 hover:bg-white hover:shadow-xl hover:shadow-orange-500/10 flex flex-col justify-between shadow-sm"
           >
             <div>
               {/* Photo */}
               <div
-                className="relative w-full aspect-[16/9] overflow-hidden bg-zinc-900 cursor-pointer"
+                className="relative w-full aspect-[16/9] overflow-hidden bg-zinc-100 cursor-pointer"
                 onClick={() => setActiveModalItem(item)}
               >
                 <Image
@@ -150,10 +150,10 @@ export default function MenuSection({ onAddToCart }: MenuSectionProps) {
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                   sizes="(max-width: 768px) 100vw, 33vw"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/80 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
 
                 {/* Badge */}
-                <div className="absolute top-2.5 left-2.5 flex items-center gap-1 px-2 py-0.5 rounded-md bg-black/60 backdrop-blur-md text-[10px] font-bold text-zinc-200 border border-white/10">
+                <div className="absolute top-2.5 left-2.5 flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-white/95 backdrop-blur-md text-[10px] font-bold text-zinc-800 border border-zinc-200 shadow-sm">
                   {item.type === "veg" ? "🌱 Pure Veg" : "🍗 Poultry"}
                 </div>
               </div>
@@ -163,31 +163,31 @@ export default function MenuSection({ onAddToCart }: MenuSectionProps) {
                 <div className="flex items-center justify-between mb-1">
                   <h3
                     onClick={() => setActiveModalItem(item)}
-                    className="text-sm sm:text-base font-bold text-white group-hover:text-amber-400 transition-colors cursor-pointer"
+                    className="text-sm sm:text-base font-bold text-zinc-900 group-hover:text-orange-600 transition-colors cursor-pointer"
                   >
                     {item.name}
                   </h3>
                 </div>
 
-                <p className="text-xs text-zinc-400 line-clamp-2 leading-relaxed">
+                <p className="text-xs text-zinc-600 line-clamp-2 leading-relaxed">
                   {item.description}
                 </p>
               </div>
             </div>
 
             {/* Bottom Row */}
-            <div className="p-4 sm:p-5 pt-0 flex items-center justify-between border-t border-white/5 mt-1">
+            <div className="p-4 sm:p-5 pt-0 flex items-center justify-between border-t border-zinc-100 mt-1">
               <div>
-                <span className="text-base font-black text-amber-400">₹{item.price}</span>
-                <span className="text-[10px] text-zinc-500 ml-1.5">• {item.prepTime}</span>
+                <span className="text-base font-black text-orange-600">₹{item.price}</span>
+                <span className="text-[10px] text-zinc-400 ml-1.5">• {item.prepTime}</span>
               </div>
 
               <button
                 onClick={() => handleQuickAdd(item)}
                 className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
                   addedItemId === item.id
-                    ? "bg-emerald-500 text-zinc-950"
-                    : "bg-white/[0.05] hover:bg-amber-500 hover:text-zinc-950 text-white border border-white/10"
+                    ? "bg-emerald-600 text-white"
+                    : "bg-orange-50 hover:bg-orange-500 text-orange-700 hover:text-white border border-orange-200/80"
                 }`}
               >
                 {addedItemId === item.id ? (
@@ -209,39 +209,39 @@ export default function MenuSection({ onAddToCart }: MenuSectionProps) {
 
       {/* Dish Details Modal */}
       {activeModalItem && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-          <div className="bg-zinc-950 border border-white/10 rounded-2xl max-w-md w-full overflow-hidden shadow-2xl relative animate-in fade-in zoom-in-95">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+          <div className="bg-white border border-zinc-200 rounded-2xl max-w-md w-full overflow-hidden shadow-2xl relative animate-in fade-in zoom-in-95">
             <button
               onClick={() => setActiveModalItem(null)}
-              className="absolute top-3 right-3 z-20 w-8 h-8 rounded-full bg-black/60 text-white flex items-center justify-center border border-white/10"
+              className="absolute top-3 right-3 z-20 w-8 h-8 rounded-full bg-black/60 text-white flex items-center justify-center hover:bg-black/80"
             >
               <X className="w-4 h-4" />
             </button>
 
-            <div className="relative w-full h-48 bg-zinc-900">
+            <div className="relative w-full h-48 bg-zinc-100">
               <Image src={activeModalItem.image} alt={activeModalItem.name} fill className="object-cover" />
-              <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/20 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
               <div className="absolute bottom-3 left-4">
-                <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-500 text-zinc-950">
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-orange-500 text-white">
                   {activeModalItem.category.toUpperCase()}
                 </span>
-                <h3 className="text-lg font-black text-white mt-1">{activeModalItem.name}</h3>
+                <h3 className="text-lg font-bold text-white mt-1">{activeModalItem.name}</h3>
               </div>
             </div>
 
             <div className="p-5 space-y-4">
-              <p className="text-xs text-zinc-300 leading-relaxed">
+              <p className="text-xs text-zinc-600 leading-relaxed">
                 {activeModalItem.longDescription}
               </p>
 
-              <div className="flex items-center justify-between pt-2 border-t border-white/10">
-                <span className="text-xl font-black text-amber-400">₹{activeModalItem.price}</span>
+              <div className="flex items-center justify-between pt-2 border-t border-zinc-100">
+                <span className="text-xl font-black text-orange-600">₹{activeModalItem.price}</span>
                 <button
                   onClick={() => {
                     handleQuickAdd(activeModalItem);
                     setActiveModalItem(null);
                   }}
-                  className="px-5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-zinc-950 font-bold text-xs flex items-center gap-1.5"
+                  className="px-5 py-2 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm"
                 >
                   <Plus className="w-3.5 h-3.5" />
                   <span>Add to Tray</span>

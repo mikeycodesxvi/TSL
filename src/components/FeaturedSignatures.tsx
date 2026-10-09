@@ -13,22 +13,21 @@ interface FeaturedSignaturesProps {
 export default function FeaturedSignatures({ onAddToCart }: FeaturedSignaturesProps) {
   const [addedId, setAddedId] = useState<string | null>(null);
 
-  // Pick the top 3 iconic items
   const featured = [
     {
       item: MENU_ITEMS[0], // The Legendary Dumpling Soup
       tag: "Original 1989",
-      icon: <SoupBowlIcon className="w-4 h-4 text-amber-400" />,
+      icon: <SoupBowlIcon className="w-4 h-4 text-orange-500" />,
     },
     {
       item: MENU_ITEMS[4], // Classic Steamed Himalayan Chicken Momos
       tag: "18 Hand Pleats",
-      icon: <DumplingIcon className="w-4 h-4 text-amber-400" />,
+      icon: <DumplingIcon className="w-4 h-4 text-orange-500" />,
     },
     {
       item: MENU_ITEMS[7], // Golden Kurkure Crunch Momos
       tag: "Student Legend",
-      icon: <ChiliFlameIcon className="w-4 h-4 text-red-400" />,
+      icon: <ChiliFlameIcon className="w-4 h-4 text-orange-600" />,
     },
   ];
 
@@ -42,14 +41,14 @@ export default function FeaturedSignatures({ onAddToCart }: FeaturedSignaturesPr
     <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       <div className="flex flex-col md:flex-row md:items-end justify-between mb-10">
         <div>
-          <span className="text-xs font-semibold text-amber-400 uppercase tracking-widest block mb-2">
+          <span className="text-xs font-bold text-orange-600 uppercase tracking-widest block mb-2">
             Chef&apos;s Highlights
           </span>
-          <h2 className="text-2xl sm:text-4xl font-extrabold text-white">
-            The Three <span className="text-gold-gradient">Icons</span> of KC
+          <h2 className="text-2xl sm:text-4xl font-extrabold text-zinc-900">
+            The Three <span className="text-orange-gradient">Icons</span> of KC
           </h2>
         </div>
-        <p className="text-xs sm:text-sm text-zinc-400 max-w-md mt-2 md:mt-0">
+        <p className="text-xs sm:text-sm text-zinc-600 max-w-md mt-2 md:mt-0 leading-relaxed">
           The dishes that made Rajpur Road a mandatory pitstop for travelers, students, and locals since 1989.
         </p>
       </div>
@@ -58,11 +57,11 @@ export default function FeaturedSignatures({ onAddToCart }: FeaturedSignaturesPr
         {featured.map(({ item, tag, icon }) => (
           <div
             key={item.id}
-            className="group bg-white/[0.03] backdrop-blur-xl border border-white/8 rounded-2xl overflow-hidden transition-all duration-300 hover:border-amber-500/30 hover:bg-white/[0.05] hover:shadow-xl hover:shadow-black/50 flex flex-col justify-between"
+            className="group bg-white/90 backdrop-blur-xl border border-zinc-200/90 rounded-2xl overflow-hidden transition-all duration-300 hover:border-orange-400 hover:bg-white hover:shadow-xl hover:shadow-orange-500/10 flex flex-col justify-between shadow-sm"
           >
             <div>
               {/* Image Frame */}
-              <div className="relative w-full aspect-[16/10] overflow-hidden bg-zinc-900">
+              <div className="relative w-full aspect-[16/10] overflow-hidden bg-zinc-100">
                 <Image
                   src={item.image}
                   alt={item.name}
@@ -70,10 +69,10 @@ export default function FeaturedSignatures({ onAddToCart }: FeaturedSignaturesPr
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                   sizes="(max-width: 768px) 100vw, 33vw"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/80 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
 
                 {/* Top Badge */}
-                <div className="absolute top-3 left-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/10 text-[11px] font-semibold text-zinc-200">
+                <div className="absolute top-3 left-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/95 backdrop-blur-md border border-zinc-200 text-[11px] font-bold text-zinc-800 shadow-sm">
                   {icon}
                   <span>{tag}</span>
                 </div>
@@ -82,30 +81,30 @@ export default function FeaturedSignatures({ onAddToCart }: FeaturedSignaturesPr
               {/* Text */}
               <div className="p-5">
                 <div className="flex items-center justify-between mb-1.5">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-amber-400/90">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-orange-600 bg-orange-50 px-2 py-0.5 rounded-md">
                     {item.type === "veg" ? "Pure Veg" : "Poultry"}
                   </span>
-                  <span className="text-xs text-zinc-400">{item.prepTime}</span>
+                  <span className="text-xs text-zinc-500 font-medium">{item.prepTime}</span>
                 </div>
 
-                <h3 className="text-base font-bold text-white group-hover:text-amber-400 transition-colors">
+                <h3 className="text-base font-bold text-zinc-900 group-hover:text-orange-600 transition-colors">
                   {item.name}
                 </h3>
-                <p className="text-xs text-zinc-400 mt-2 line-clamp-2 leading-relaxed">
+                <p className="text-xs text-zinc-600 mt-2 line-clamp-2 leading-relaxed">
                   {item.description}
                 </p>
               </div>
             </div>
 
             {/* Price & Add */}
-            <div className="p-5 pt-0 flex items-center justify-between border-t border-white/5 mt-2">
-              <span className="text-lg font-black text-amber-400">₹{item.price}</span>
+            <div className="p-5 pt-0 flex items-center justify-between border-t border-zinc-100 mt-2">
+              <span className="text-lg font-black text-orange-600">₹{item.price}</span>
               <button
                 onClick={() => handleAdd(item)}
                 className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold transition-all ${
                   addedId === item.id
-                    ? "bg-emerald-500 text-zinc-950 scale-105"
-                    : "bg-white/[0.06] hover:bg-amber-500 hover:text-zinc-950 text-white border border-white/10"
+                    ? "bg-emerald-600 text-white scale-105"
+                    : "bg-orange-500 hover:bg-orange-600 text-white shadow-sm shadow-orange-500/25 active:scale-95"
                 }`}
               >
                 {addedId === item.id ? (

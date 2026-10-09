@@ -65,7 +65,7 @@ export default function Home() {
   const totalTrayCount = tray.reduce((sum, entry) => sum + entry.quantity, 0);
 
   return (
-    <div className="min-h-screen bg-[#070709] text-zinc-100 selection:bg-amber-500 selection:text-zinc-950 font-sans antialiased">
+    <div className="min-h-screen bg-[#fafaf9] text-zinc-900 selection:bg-orange-500 selection:text-white font-sans antialiased">
       {/* 1. Frosted Glass Sticky Navbar (No Music, Clean & Minimal) */}
       <Navbar
         trayCount={totalTrayCount}
