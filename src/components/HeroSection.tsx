@@ -55,19 +55,19 @@ export default function HeroSection({ onExploreMenu, onOpenOrder }: HeroSectionP
         {/* Heritage Pill Badge */}
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/15 border border-white/25 backdrop-blur-md mb-6 shadow-sm">
           <span className="w-2 h-2 rounded-full bg-orange-400 animate-pulse" />
-          <span className="text-xs font-semibold text-orange-300 tracking-wider uppercase">
+          <span className="text-xs font-normal text-orange-300 tracking-wider uppercase">
             Est. 1989 • Rajpur Road, Dehradun
           </span>
         </div>
 
         {/* High-Contrast Bold Headline */}
-        <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-tight text-white max-w-5xl mx-auto leading-[1.12] mb-6 drop-shadow-md">
+        <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-normal tracking-tight text-white max-w-5xl mx-auto leading-[1.12] mb-6 drop-shadow-md">
           The Soul of <span className="text-orange-400">Dehradun</span>, <br />
           Hand-Folded Since <span className="text-orange-400">1989</span>.
         </h1>
 
-        {/* Subtitle with High Contrast */}
-        <p className="text-zinc-100 text-sm sm:text-base md:text-xl max-w-3xl mx-auto font-normal leading-relaxed mb-10 text-balance drop-shadow">
+        {/* Subtitle / Tagline with Reduced Font Weight */}
+        <p className="font-sans font-light sm:font-normal text-zinc-200 text-sm sm:text-base md:text-xl max-w-3xl mx-auto leading-relaxed mb-10 text-balance drop-shadow">
           Pioneering Dehradun&apos;s famous 18-hour slow-simmered Dumpling Soup, artisanal Tibetan momos, and piping hot thukpa in the Himalayan foothills.
         </p>
 

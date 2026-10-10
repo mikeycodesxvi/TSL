@@ -15,8 +15,10 @@ html {
   font-family: 'Bowlby One SC', cursive, sans-serif;
 }
 
-body, button, input, select, textarea, h1, h2, h3, h4, h5, h6, a, span, p, label {
-  font-family: 'Bowlby One SC', cursive, sans-serif;
+@layer base {
+  body, button, input, select, textarea, h1, h2, h3, h4, h5, h6, a, span, p, label {
+    font-family: 'Bowlby One SC', cursive, sans-serif;
+  }
 }
 
 body {
