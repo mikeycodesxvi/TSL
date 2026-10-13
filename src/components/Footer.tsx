@@ -26,16 +26,16 @@ export default function Footer() {
 
   return (
     <footer className="relative bg-[#f5f5f4] border-t border-orange-100/90 pt-16 pb-12 text-zinc-600 overflow-hidden">
-      {/* Background image with low opacity */}
+      {/* Background image with 30% opacity */}
       <div className="absolute inset-0 pointer-events-none select-none z-0">
         <Image
           src="/FOOTER.jpg"
           alt="Footer background"
           fill
-          className="object-cover object-center opacity-10"
+          className="object-cover object-center opacity-30"
           sizes="100vw"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#f5f5f4] via-[#f5f5f4]/85 to-[#f5f5f4]/60" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#f5f5f4]/90 via-[#f5f5f4]/65 to-[#f5f5f4]/35" />
       </div>
 
       <div className="relative z-10 max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
