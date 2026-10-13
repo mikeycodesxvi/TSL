@@ -25,8 +25,20 @@ export default function Footer() {
   };
 
   return (
-    <footer className="relative bg-[#f5f5f4] border-t border-orange-100/90 pt-16 pb-12 text-zinc-600">
-      <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
+    <footer className="relative bg-[#f5f5f4] border-t border-orange-100/90 pt-16 pb-12 text-zinc-600 overflow-hidden">
+      {/* Background image with low opacity */}
+      <div className="absolute inset-0 pointer-events-none select-none z-0">
+        <Image
+          src="/FOOTER.jpg"
+          alt="Footer background"
+          fill
+          className="object-cover object-center opacity-10"
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#f5f5f4] via-[#f5f5f4]/85 to-[#f5f5f4]/60" />
+      </div>
+
+      <div className="relative z-10 max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 pb-12 border-b border-zinc-200">
           {/* Brand Info */}
           <div className="lg:col-span-4 space-y-3">
