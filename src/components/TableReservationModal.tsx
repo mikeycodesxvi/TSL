@@ -41,7 +41,7 @@ export default function TableReservationModal({
   const chosenOutlet = OUTLETS.find((o) => o.id === outletId) || OUTLETS[0];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/70 backdrop-blur-md">
       <div className="bg-white border border-zinc-200 rounded-3xl max-w-lg w-full p-6 sm:p-8 relative shadow-2xl text-zinc-900 animate-in fade-in zoom-in-95">
         <button
           onClick={onClose}

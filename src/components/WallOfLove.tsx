@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import Image from "next/image";
 import { Star, Plus, X } from "lucide-react";
 import confetti from "canvas-confetti";
@@ -13,6 +14,22 @@ export default function WallOfLove() {
   const [text, setText] = useState("");
   const [favoriteDish, setFavoriteDish] = useState("The Legendary Dumpling Soup");
   const [rating, setRating] = useState(5);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (isModalOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isModalOpen]);
 
   const handleAddReview = (e: React.FormEvent) => {
     e.preventDefault();
@@ -111,52 +128,107 @@ export default function WallOfLove() {
         </button>
       </div>
 
-      {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-          <div className="bg-white border border-zinc-200 rounded-2xl max-w-sm w-full p-6 relative shadow-2xl">
+      {isModalOpen && mounted && createPortal(
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/70 backdrop-blur-md animate-in fade-in"
+          onClick={() => setIsModalOpen(false)}
+        >
+          <div
+            className="bg-white border border-zinc-200 rounded-3xl max-w-md w-full p-6 sm:p-8 relative shadow-2xl z-[101] animate-in zoom-in-95 text-zinc-900"
+            onClick={(e) => e.stopPropagation()}
+          >
             <button
               onClick={() => setIsModalOpen(false)}
-              className="absolute top-4 right-4 text-zinc-400 hover:text-zinc-600"
+              className="absolute top-5 right-5 text-zinc-400 hover:text-zinc-700 p-1.5 rounded-full hover:bg-zinc-100 transition-colors"
+              aria-label="Close review modal"
             >
-              <X className="w-4 h-4" />
+              <X className="w-5 h-5" />
             </button>
 
-            <h3 className="text-base font-bold text-zinc-900 mb-4">Leave a Review</h3>
+            <h3 className="text-xl font-extrabold text-zinc-900 mb-1">Leave a Review</h3>
+            <p className="font-sans text-xs text-zinc-500 mb-5">
+              Share your dining memory from KC Soup Bar with the Doon community.
+            </p>
 
-            <form onSubmit={handleAddReview} className="space-y-3">
-              <input
-                type="text"
-                required
-                placeholder="Your Name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                className="w-full px-3 py-2 rounded-xl bg-zinc-50 border border-zinc-200 text-xs text-zinc-900 placeholder-zinc-400 focus:outline-none focus:border-orange-500"
-              />
-              <input
-                type="text"
-                placeholder="Favorite Dish"
-                value={favoriteDish}
-                onChange={(e) => setFavoriteDish(e.target.value)}
-                className="w-full px-3 py-2 rounded-xl bg-zinc-50 border border-zinc-200 text-xs text-zinc-900 placeholder-zinc-400 focus:outline-none focus:border-orange-500"
-              />
-              <textarea
-                required
-                rows={3}
-                placeholder="Your experience..."
-                value={text}
-                onChange={(e) => setText(e.target.value)}
-                className="w-full px-3 py-2 rounded-xl bg-zinc-50 border border-zinc-200 text-xs text-zinc-900 placeholder-zinc-400 focus:outline-none focus:border-orange-500"
-              />
+            <form onSubmit={handleAddReview} className="space-y-4">
+              <div>
+                <label className="block text-[11px] font-bold text-zinc-700 uppercase tracking-wider mb-1.5">
+                  Your Rating
+                </label>
+                <div className="flex items-center gap-1.5">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <button
+                      type="button"
+                      key={i}
+                      onClick={() => setRating(i + 1)}
+                      className="p-1 hover:scale-110 transition-transform focus:outline-none"
+                    >
+                      <Star
+                        className={`w-6 h-6 transition-colors ${
+                          i < rating
+                            ? "text-orange-500 fill-orange-500"
+                            : "text-zinc-300"
+                        }`}
+                      />
+                    </button>
+                  ))}
+                  <span className="font-sans text-xs font-semibold text-zinc-500 ml-2">
+                    {rating} out of 5
+                  </span>
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-[11px] font-bold text-zinc-700 uppercase tracking-wider mb-1.5">
+                  Your Name
+                </label>
+                <input
+                  type="text"
+                  required
+                  placeholder="e.g. Rohan Sharma"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="font-sans font-normal w-full px-3.5 py-2.5 rounded-xl bg-zinc-50 border border-zinc-200 text-sm text-zinc-900 placeholder-zinc-400 focus:outline-none focus:border-orange-500 focus:bg-white transition-colors"
+                />
+              </div>
+
+              <div>
+                <label className="block text-[11px] font-bold text-zinc-700 uppercase tracking-wider mb-1.5">
+                  Favorite Dish
+                </label>
+                <input
+                  type="text"
+                  placeholder="e.g. The Legendary Dumpling Soup"
+                  value={favoriteDish}
+                  onChange={(e) => setFavoriteDish(e.target.value)}
+                  className="font-sans font-normal w-full px-3.5 py-2.5 rounded-xl bg-zinc-50 border border-zinc-200 text-sm text-zinc-900 placeholder-zinc-400 focus:outline-none focus:border-orange-500 focus:bg-white transition-colors"
+                />
+              </div>
+
+              <div>
+                <label className="block text-[11px] font-bold text-zinc-700 uppercase tracking-wider mb-1.5">
+                  Your Experience
+                </label>
+                <textarea
+                  required
+                  rows={3}
+                  placeholder="Tell us what you loved about the food, broth, or ambience..."
+                  value={text}
+                  onChange={(e) => setText(e.target.value)}
+                  className="font-sans font-normal w-full px-3.5 py-2.5 rounded-xl bg-zinc-50 border border-zinc-200 text-sm text-zinc-900 placeholder-zinc-400 focus:outline-none focus:border-orange-500 focus:bg-white transition-colors resize-none"
+                />
+              </div>
 
               <button
                 type="submit"
-                className="w-full py-2.5 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-bold text-xs uppercase tracking-wider shadow-sm"
+                className="w-full py-3 rounded-xl bg-orange-500 hover:bg-orange-600 active:scale-[0.99] text-white font-bold text-xs uppercase tracking-wider shadow-md shadow-orange-500/20 transition-all flex items-center justify-center gap-2"
               >
-                Submit Review
+                <span>Submit Review</span>
               </button>
             </form>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </section>
   );

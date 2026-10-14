@@ -76,7 +76,7 @@ export default function Home() {
         }}
       />
 
-      <main className="relative z-10">
+      <main className="relative">
         {/* 2. Simple, Ambient 3D Hero with Food Icons */}
         <HeroSection
           onExploreMenu={() => scrollToSection("menu")}

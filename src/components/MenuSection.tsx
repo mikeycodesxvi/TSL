@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useEffect, useMemo } from "react";
+import { createPortal } from "react-dom";
 import Image from "next/image";
 import { Search, Plus, Check, X } from "lucide-react";
 import { MENU_ITEMS, MenuItem } from "../data/restaurantData";
@@ -22,6 +23,22 @@ export default function MenuSection({ onAddToCart }: MenuSectionProps) {
   const [filterVegOnly, setFilterVegOnly] = useState<boolean>(false);
   const [activeModalItem, setActiveModalItem] = useState<MenuItem | null>(null);
   const [addedItemId, setAddedItemId] = useState<string | null>(null);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (activeModalItem) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [activeModalItem]);
 
   const categories = [
     { id: "all", name: "All", icon: null },
@@ -208,12 +225,19 @@ export default function MenuSection({ onAddToCart }: MenuSectionProps) {
       </div>
 
       {/* Dish Details Modal */}
-      {activeModalItem && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-          <div className="bg-white border border-zinc-200 rounded-2xl max-w-md w-full overflow-hidden shadow-2xl relative animate-in fade-in zoom-in-95">
+      {activeModalItem && mounted && createPortal(
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/70 backdrop-blur-md animate-in fade-in"
+          onClick={() => setActiveModalItem(null)}
+        >
+          <div
+            className="bg-white border border-zinc-200 rounded-3xl max-w-md w-full overflow-hidden shadow-2xl relative z-[101] animate-in zoom-in-95 text-zinc-900"
+            onClick={(e) => e.stopPropagation()}
+          >
             <button
               onClick={() => setActiveModalItem(null)}
-              className="absolute top-3 right-3 z-20 w-8 h-8 rounded-full bg-black/60 text-white flex items-center justify-center hover:bg-black/80"
+              className="absolute top-3 right-3 z-20 w-8 h-8 rounded-full bg-black/60 text-white flex items-center justify-center hover:bg-black/80 transition-colors"
+              aria-label="Close modal"
             >
               <X className="w-4 h-4" />
             </button>
@@ -230,7 +254,7 @@ export default function MenuSection({ onAddToCart }: MenuSectionProps) {
             </div>
 
             <div className="p-5 space-y-4">
-              <p className="text-xs text-zinc-600 leading-relaxed">
+              <p className="font-sans text-xs text-zinc-600 leading-relaxed">
                 {activeModalItem.longDescription}
               </p>
 
@@ -241,7 +265,7 @@ export default function MenuSection({ onAddToCart }: MenuSectionProps) {
                     handleQuickAdd(activeModalItem);
                     setActiveModalItem(null);
                   }}
-                  className="px-5 py-2 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm"
+                  className="px-5 py-2.5 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm active:scale-95 transition-all"
                 >
                   <Plus className="w-3.5 h-3.5" />
                   <span>Add to Tray</span>
@@ -249,7 +273,8 @@ export default function MenuSection({ onAddToCart }: MenuSectionProps) {
               </div>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </section>
   );
