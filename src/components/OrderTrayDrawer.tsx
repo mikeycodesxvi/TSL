@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import Image from "next/image";
 import { X, Trash2, Plus, Minus, ShoppingBag, Send, ExternalLink } from "lucide-react";
 import confetti from "canvas-confetti";
@@ -31,8 +32,24 @@ export default function OrderTrayDrawer({
   const [customerName, setCustomerName] = useState<string>("");
   const [customerPhone, setCustomerPhone] = useState<string>("");
   const [deliveryAddress, setDeliveryAddress] = useState<string>("");
+  const [mounted, setMounted] = useState(false);
 
-  if (!isOpen) return null;
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
+
+  if (!isOpen || !mounted) return null;
 
   const subtotal = tray.reduce((sum, entry) => sum + entry.item.price * entry.quantity, 0);
   const taxes = Math.round(subtotal * 0.05); // 5% GST
@@ -81,25 +98,25 @@ export default function OrderTrayDrawer({
     window.open(whatsappUrl, "_blank");
   };
 
-  return (
+  return createPortal(
     <div className="fixed inset-0 z-[100] overflow-hidden">
       {/* Backdrop */}
       <div
         onClick={onClose}
-        className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity"
+        className="fixed inset-0 bg-black/70 backdrop-blur-md transition-opacity animate-in fade-in duration-300"
       />
 
-      <div className="fixed inset-y-0 right-0 max-w-full flex pl-10">
-        <div className="w-screen max-w-md bg-white border-l border-zinc-200 shadow-2xl flex flex-col justify-between text-zinc-900">
+      <div className="fixed inset-y-0 right-0 max-w-full flex sm:pl-10 pointer-events-none">
+        <div className="w-full sm:w-[420px] md:w-[460px] max-w-full bg-white border-l border-zinc-200 shadow-2xl flex flex-col justify-between text-zinc-900 h-full animate-in slide-in-from-right duration-300 pointer-events-auto">
           {/* Header */}
-          <div className="p-6 border-b border-zinc-100 flex items-center justify-between">
+          <div className="p-4 sm:p-6 border-b border-zinc-100 flex items-center justify-between shrink-0">
             <div className="flex items-center gap-2.5">
               <div className="w-9 h-9 rounded-xl bg-orange-50 border border-orange-200 flex items-center justify-center text-orange-600">
                 <ShoppingBag className="w-5 h-5" />
               </div>
               <div>
                 <h3 className="text-base font-extrabold text-zinc-900">Your Order Tray</h3>
-                <span className="text-xs text-zinc-500">
+                <span className="font-sans text-xs text-zinc-500">
                   {tray.length} item{tray.length !== 1 ? "s" : ""}
                 </span>
               </div>
@@ -111,6 +128,7 @@ export default function OrderTrayDrawer({
                   onClick={onClearTray}
                   className="p-2 text-zinc-400 hover:text-red-500 rounded-lg hover:bg-zinc-100 transition-colors"
                   title="Clear Tray"
+                  aria-label="Clear Tray"
                 >
                   <Trash2 className="w-4 h-4" />
                 </button>
@@ -118,6 +136,7 @@ export default function OrderTrayDrawer({
               <button
                 onClick={onClose}
                 className="p-2 text-zinc-400 hover:text-zinc-700 rounded-lg hover:bg-zinc-100 transition-colors"
+                aria-label="Close Tray"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -125,14 +144,14 @@ export default function OrderTrayDrawer({
           </div>
 
           {/* Tray Items List */}
-          <div className="flex-1 overflow-y-auto p-6 space-y-4">
+          <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-4 overscroll-contain">
             {tray.length === 0 ? (
               <div className="h-full flex flex-col items-center justify-center text-center py-16">
                 <div className="w-16 h-16 rounded-full bg-orange-50 flex items-center justify-center mb-4 text-orange-400">
                   <ShoppingBag className="w-8 h-8" />
                 </div>
                 <h4 className="text-base font-bold text-zinc-900 mb-1">Your tray is empty</h4>
-                <p className="text-xs text-zinc-500 max-w-[240px] mb-6">
+                <p className="font-sans text-xs text-zinc-500 max-w-[240px] mb-6">
                   Add our legendary 1989 dumpling soup or handcrafted momos from the menu!
                 </p>
                 <button
@@ -169,6 +188,7 @@ export default function OrderTrayDrawer({
                     <button
                       onClick={() => onUpdateQuantity(entry.item.id, entry.quantity - 1)}
                       className="text-zinc-500 hover:text-zinc-900 p-0.5"
+                      aria-label="Decrease quantity"
                     >
                       <Minus className="w-3 h-3" />
                     </button>
@@ -178,6 +198,7 @@ export default function OrderTrayDrawer({
                     <button
                       onClick={() => onUpdateQuantity(entry.item.id, entry.quantity + 1)}
                       className="text-zinc-500 hover:text-zinc-900 p-0.5"
+                      aria-label="Increase quantity"
                     >
                       <Plus className="w-3 h-3" />
                     </button>
@@ -191,13 +212,13 @@ export default function OrderTrayDrawer({
               <div className="pt-4 border-t border-zinc-100 space-y-4">
                 {/* Outlet Selection */}
                 <div>
-                  <label className="text-xs font-bold text-zinc-700 block mb-1.5">
+                  <label className="text-[11px] font-bold text-zinc-700 block mb-1.5 uppercase tracking-wider">
                     Select Fulfilling Outlet
                   </label>
                   <select
                     value={selectedOutlet}
                     onChange={(e) => setSelectedOutlet(e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-50 border border-zinc-200 text-xs text-zinc-900 focus:outline-none focus:border-orange-500"
+                    className="font-sans font-normal w-full px-3.5 py-2.5 rounded-xl bg-zinc-50 border border-zinc-200 text-xs sm:text-sm text-zinc-900 focus:outline-none focus:border-orange-500 focus:bg-white transition-colors"
                   >
                     {OUTLETS.map((o) => (
                       <option key={o.id} value={o.id}>
@@ -211,49 +232,49 @@ export default function OrderTrayDrawer({
                 <div className="grid grid-cols-2 gap-2">
                   <button
                     onClick={() => setOrderType("delivery")}
-                    className={`py-2 rounded-xl text-xs font-bold border transition-colors ${
+                    className={`py-2.5 rounded-xl text-xs font-bold border transition-colors flex items-center justify-center gap-1.5 ${
                       orderType === "delivery"
-                        ? "bg-orange-50 text-orange-700 border-orange-300"
-                        : "bg-zinc-50 text-zinc-600 border-zinc-200"
+                        ? "bg-orange-50 text-orange-700 border-orange-300 shadow-xs"
+                        : "bg-zinc-50 text-zinc-600 border-zinc-200 hover:bg-zinc-100"
                     }`}
                   >
-                    🚀 Home Delivery
+                    <span>🚀 Home Delivery</span>
                   </button>
                   <button
                     onClick={() => setOrderType("pickup")}
-                    className={`py-2 rounded-xl text-xs font-bold border transition-colors ${
+                    className={`py-2.5 rounded-xl text-xs font-bold border transition-colors flex items-center justify-center gap-1.5 ${
                       orderType === "pickup"
-                        ? "bg-orange-50 text-orange-700 border-orange-300"
-                        : "bg-zinc-50 text-zinc-600 border-zinc-200"
+                        ? "bg-orange-50 text-orange-700 border-orange-300 shadow-xs"
+                        : "bg-zinc-50 text-zinc-600 border-zinc-200 hover:bg-zinc-100"
                     }`}
                   >
-                    🛍️ Self Takeaway
+                    <span>🛍️ Self Takeaway</span>
                   </button>
                 </div>
 
                 {/* Customer Details */}
-                <div className="space-y-2">
+                <div className="space-y-2.5">
                   <input
                     type="text"
-                    placeholder="Your Name"
+                    placeholder="Your Name (e.g. Rahul Verma)"
                     value={customerName}
                     onChange={(e) => setCustomerName(e.target.value)}
-                    className="w-full px-3.5 py-2 rounded-xl bg-zinc-50 border border-zinc-200 text-xs text-zinc-900 placeholder-zinc-400 focus:outline-none focus:border-orange-500"
+                    className="font-sans font-normal w-full px-3.5 py-2.5 rounded-xl bg-zinc-50 border border-zinc-200 text-xs sm:text-sm text-zinc-900 placeholder-zinc-400 focus:outline-none focus:border-orange-500 focus:bg-white transition-colors"
                   />
                   <input
                     type="tel"
-                    placeholder="Mobile Number"
+                    placeholder="Mobile Number (e.g. 9876543210)"
                     value={customerPhone}
                     onChange={(e) => setCustomerPhone(e.target.value)}
-                    className="w-full px-3.5 py-2 rounded-xl bg-zinc-50 border border-zinc-200 text-xs text-zinc-900 placeholder-zinc-400 focus:outline-none focus:border-orange-500"
+                    className="font-sans font-normal w-full px-3.5 py-2.5 rounded-xl bg-zinc-50 border border-zinc-200 text-xs sm:text-sm text-zinc-900 placeholder-zinc-400 focus:outline-none focus:border-orange-500 focus:bg-white transition-colors"
                   />
                   {orderType === "delivery" && (
                     <textarea
                       rows={2}
-                      placeholder="Delivery Address in Dehradun..."
+                      placeholder="Delivery Address in Dehradun (House/Street/Landmark)..."
                       value={deliveryAddress}
                       onChange={(e) => setDeliveryAddress(e.target.value)}
-                      className="w-full px-3.5 py-2 rounded-xl bg-zinc-50 border border-zinc-200 text-xs text-zinc-900 placeholder-zinc-400 focus:outline-none focus:border-orange-500"
+                      className="font-sans font-normal w-full px-3.5 py-2.5 rounded-xl bg-zinc-50 border border-zinc-200 text-xs sm:text-sm text-zinc-900 placeholder-zinc-400 focus:outline-none focus:border-orange-500 focus:bg-white transition-colors resize-none"
                     />
                   )}
                 </div>
@@ -263,7 +284,7 @@ export default function OrderTrayDrawer({
 
           {/* Footer Checkout Summary */}
           {tray.length > 0 && (
-            <div className="p-6 border-t border-zinc-100 bg-zinc-50/80 space-y-4">
+            <div className="p-4 sm:p-6 border-t border-zinc-100 bg-zinc-50/90 space-y-4 shrink-0 pb-8 sm:pb-6">
               <div className="space-y-1.5 text-xs text-zinc-600">
                 <div className="flex justify-between">
                   <span>Subtotal</span>
@@ -294,7 +315,7 @@ export default function OrderTrayDrawer({
 
               {/* Delivery Apps */}
               <div className="text-center pt-1">
-                <span className="text-[10px] text-zinc-500 block mb-1">
+                <span className="font-sans text-[10px] text-zinc-500 block mb-1">
                   Also available on food delivery apps:
                 </span>
                 <div className="flex items-center justify-center gap-3">
@@ -323,6 +344,7 @@ export default function OrderTrayDrawer({
           )}
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
