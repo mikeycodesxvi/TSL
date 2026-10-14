@@ -137,7 +137,7 @@ export const MENU_ITEMS: MenuItem[] = [
     spiceLevel: 2,
     isPopular: true,
     isChefSpecial: true,
-    image: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&w=800&q=80",
+    image: "https://images.unsplash.com/photo-1677449477334-ffa76ad861e2?auto=format&fit=crop&w=800&q=80",
     prepTime: "7 mins",
     tags: ["Top Ranked", "18 Pleats", "Original Recipe"],
     nutrition: { calories: 360, protein: "28g" },
